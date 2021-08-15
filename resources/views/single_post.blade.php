@@ -7,10 +7,10 @@
 
 <article class="mb-5">
     <h2>
-       {{ $data["title"] }}
+       {{ $data->title }}
     </h2>
-    <h5>{{ $data["autor"] }}</h5>
-    <p>{{ $data["body"] }}</p>
+    <h5>{{ $data->autor }}</h5>
+    {!! $data->body !!}
 </article>
 
 <a href="/blog">Back to Post</a>
