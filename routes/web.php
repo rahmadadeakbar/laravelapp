@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PostController;
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,7 +37,7 @@ Route::get('/about', function () {
 
 
 
-Route::get('/blog', [PostController::class, 'index']);
+Route::get('/posts', [PostController::class, 'index']);
 
 
 // halaman singgle post
@@ -73,3 +74,23 @@ Route::get(
     //     "data" => Post::find($slug)
     // ]);
 );
+
+
+// Route Model Binding category
+Route::get('/category/{category:slug}', function (Category $category) {
+    return view('category', [
+        'title' => $category->name,
+        'post' => $category->post,
+        'category' => $category->name
+    ]);
+});
+
+
+
+Route::get('/categories', function () {
+
+    return view('categories', [
+        'title' => 'Post Categories',
+        'categories' => Category::all()
+    ]);
+});
