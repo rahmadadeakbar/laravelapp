@@ -9,7 +9,7 @@
     <h2>
        {{ $data->title }}
     </h2>
-    <h5>By. <a href="" class="text-decoration-none">{{ $data->user->name }}</a> in <a href="/category/{{ $data->category->slug }}">{{ $data->category->name }}</a></h5>
+    <a href="/autors/{{ $data->autor->username }}" class="text-decoration-none">{{ $data->autor->name }}</a> in <a href="/category/{{ $data->category->slug }}" class="text-decoration-none">{{ $data->category->name }}</a></h6> <br>
     {!! $data->body !!}
 </article>
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\PostController;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,12 +21,14 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+// route home
 Route::get('/', function () {
     return view('home', [
         "title" => "Home"
     ]);
 });
 
+// route about
 Route::get('/about', function () {
     return view('about', [
         "title" => "About",
@@ -36,11 +39,11 @@ Route::get('/about', function () {
 });
 
 
-
+// route posts
 Route::get('/posts', [PostController::class, 'index']);
 
 
-// halaman singgle post
+// route halaman singgle post
 Route::get(
     'post/{post:slug}',
     [PostController::class, 'show']
@@ -78,10 +81,10 @@ Route::get(
 
 // Route Model Binding category
 Route::get('/category/{category:slug}', function (Category $category) {
-    return view('category', [
-        'title' => $category->name,
-        'post' => $category->post,
-        'category' => $category->name
+    return view('posts', [
+        'title' => "Post By Category : $category->name",
+        'posts' => $category->post->load('category', 'autor'),
+        // 'category' => $category->name
     ]);
 });
 
@@ -92,5 +95,19 @@ Route::get('/categories', function () {
     return view('categories', [
         'title' => 'Post Categories',
         'categories' => Category::all()
+    ]);
+});
+
+
+
+// route autor
+
+Route::get('/autors/{autor:username}', function (User $autor) {
+
+    return view('posts', [
+
+        'title' => "Post By Autor : $autor->name",
+        'posts' => $autor->post->load('category', 'autor'),
+
     ]);
 });
